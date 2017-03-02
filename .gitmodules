@@ -1,0 +1,6 @@
+[submodule "ext/woothee-c"]
+	path = ext/woothee-c
+	url = https://github.com/kjdev/woothee-c
+[submodule "woothee"]
+	path = woothee
+	url = https://github.com/woothee/woothee

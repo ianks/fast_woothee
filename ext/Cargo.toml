@@ -1,0 +1,11 @@
+[package]
+name = "fast_woothee"
+version = "0.1.0"
+authors = ["Ian Ker-Seymer <i.kerseymer@gmail.com>"]
+
+[lib]
+crate-type = ["dylib"]
+
+[dependencies]
+woothee = "^0.6"
+ruru = "*"
