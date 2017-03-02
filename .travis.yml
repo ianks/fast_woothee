@@ -46,28 +46,28 @@ script:
   - travis-cargo build
   - bundle exec rake spec
   - bundle exec rake thermite:tarball
-  - bundle exec rake install
-  - |
-    if [[ -z "$TRAVIS_TAG" ]]; then
-      gem uninstall fast_woothee
-      CARGO=fake bundle exec rake install
-    fi
-  - |
-    if [[ -z "$TRAVIS_TAG" ]]; then
-      gem uninstall fast_woothee
-      gem install minitest
-      CARGO=fake gem install pkg/*.gem
-      rspec spec
-    fi
-  - |
-    if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then
-      cat $THERMITE_DEBUG_FILENAME;
-    fi
+  # - bundle exec rake install
+  # - |
+  #   if [[ -z "$TRAVIS_TAG" ]]; then
+  #     gem uninstall fast_woothee
+  #     CARGO=fake bundle exec rake install
+  #   fi
+  # - |
+  #   if [[ -z "$TRAVIS_TAG" ]]; then
+  #     gem uninstall fast_woothee
+  #     gem install minitest
+  #     CARGO=fake gem install pkg/*.gem
+  #     rspec spec
+  #   fi
+  # - |
+  #   if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then
+  #     cat $THERMITE_DEBUG_FILENAME;
+  #   fi
 deploy:
   provider: releases
   api_key:
     secure: 3sPpXpRZ5FzEL3wYaGDD9jSXiPl9SLA4F0GME8JMnN69UyNPmqN5Dy5FHEN0HzQSn+RQ5hxkN3GFJgIZ1v7acJ66cgBJL5SCuol3qCeXg8dEYssOREeM5VFAwb4+y3gUNgD/nNmYJVHKZezVaLE/VOwCQyRj3BDqnlG0bVCzc9yjE81SmjUy9/ABBWRBrlC+tyrwAg+qaZLFg537RrAy4wFngr7xrilvnFxh4M+UCB1o7xzQbGBaunFf7K3+bG9mENBUdsr5fkMIr3HfXilBERpVbGXbMAhseprPQBlbTz1u96uQFuf892hIxQOtJxTAMlvOBOchFjnd/B4mm1oLEwLKJkPBC/hiGwXbM5MvWJxLnH1T6P9Hz9Vv7M3qLv7k3+/sNxnQ048AyH+IAVYXT85QGcRXlNQoQFUs6NBl4MC/izfcfLLcLbt5FBWWWofFguzgrGqJYdLk00QL+V8aQ/5kqwsOjaJTx46fLABBTfRmQTPZWOcJWta/ZCLK+MKpvVPbjInQyh9pLkfQrmjRNyNvdYpI8zGkd25EvUSo5fjLpx0pqHmptiyP6EmuD1PKPPR/lLuDknPZoh9l1kGseYYIzLPd164rfhrgtwSVArUusp/ZV1aUDUufIZGJSwz/AJwnX9h2hEQOQElr0f6PUA3a9MTvS6r+jMasASysm1I=
-  file: rusty_blank-*.tar.gz
+  file: fast_woothee-*.tar.gz
   file_glob: true
   skip_cleanup: true
   on:
