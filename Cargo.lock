@@ -1,6 +1,6 @@
 [root]
 name = "fast_woothee"
-version = "1.0.2"
+version = "1.0.4"
 dependencies = [
  "ruru 0.9.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "woothee 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
