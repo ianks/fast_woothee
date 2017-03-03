@@ -1,6 +1,6 @@
 [package]
 name = "fast_woothee"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["Ian Ker-Seymer <i.kerseymer@gmail.com>"]
 repository = "https://github.com/ianks/fast_woothee"
 publish = false
@@ -15,4 +15,4 @@ ruru = "^0.9"
 
 [package.metadata.thermite]
 github_releases = true
-github_release_type = "latest"
+optional_rust_extension = true
