@@ -1,4 +1,3 @@
----
 sudo: false
 language: rust
 os:
@@ -9,7 +8,7 @@ osx_image: xcode8.1
 rust: stable
 env:
   global:
-    - THERMITE_DEBUG_FILENAME: /tmp/thermite-debug.log
+    - THERMITE_DEBUG_FILENAME: "/tmp/thermite-debug.log"
   matrix:
     - WOOTHEE_RUBY_VERSION: 2.3.3
     - WOOTHEE_RUBY_VERSION: 2.4.0
@@ -21,13 +20,11 @@ matrix:
     - os: osx
       osx_image: xcode8
       env: WOOTHEE_RUBY_VERSION=2.4.0
-
 cache:
   cargo: true
   directories:
-    - $TRAVIS_BUILD_DIR/vendor/bundle
-    - $HOME/.cache/pip
-
+    - "$TRAVIS_BUILD_DIR/vendor/bundle"
+    - "$HOME/.cache/pip"
 before_install:
   - |
     rvm install "$WOOTHEE_RUBY_VERSION"
@@ -37,7 +34,6 @@ before_install:
       gem install bundler
     fi
   - bundle install --jobs=3 --retry=3 --path=$TRAVIS_BUILD_DIR/vendor/bundle
-
 before_script:
   - |
     export PATH=$HOME/Library/Python/2.7/bin:$HOME/.local/bin:$PATH
@@ -46,37 +42,34 @@ before_script:
       python get-pip.py --user
     fi
     pip install 'travis-cargo<0.2' --user
-
 script:
   - travis-cargo build
   - bundle exec rake spec
   - bundle exec rake thermite:tarball
-  - bundle exec rake install
-  - |
-    if [[ -z "$TRAVIS_TAG" ]]; then
-      gem uninstall fast_woothee
-      CARGO=fake bundle exec rake install
-    fi
-  - |
-    if [[ -z "$TRAVIS_TAG" ]]; then
-      gem uninstall fast_woothee
-      gem install minitest
-      CARGO=fake gem install pkg/*.gem
-      rspec spec
-    fi
-  - |
-    if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then
-      cat $THERMITE_DEBUG_FILENAME;
-    fi
-
-# deploy:
-#   provider: releases
-#   api_key:
-#     secure: GZFo4A2iPwQsT10C9Ge4CXHR/2z6/NPUODUuZr1FEgfCaqbrfk6r5l73JICBsuY1ZOgIxvy0sSCz6/npszwgZ022JacSqWuHjqJ9VbUQ6plmc+XY+pv6nAOFPCZ/MbmCMLD7pCUS0CvExzSIum0mh4iHhviBpz89MIQOlI9qt+rz2uqq0q6MbfImwQ0heywyYAdvn1/03odsV9/brbV8mDOszUboPPLJMok5IR/9kJfFd3aJkfMXWJQmnShwCsuTohS48JTE+Uwl2nXjAzgwwJQlRE/7YMQc9P4vS7iSm+uKRKepPz50sXiel9CsgzgYs5Gr8aqmp4n7oAHiXwTo7VrjI2uF6nynuTowChmT9pzX83+4NoKTsneW7kBZToVWvrpmzUfRZQsJLv2uVHh2cG6PWf+PhLFnrtiPPLA32Nq3e6P7moFVQy6rxHEMwLdj6iturBSY5qaaTOsoVT28TJMmvfMTka/Jg+JU1QLOzaWUn74wAOThzyvdT6yQ6gu74UK9Wa8JDYYMTlXqUWCaZp2r/4/fbyfVyRbNIAbq4zAKHD6uQxOub7UyHooZKh4YP91IDO0BTiJX5SJvSVqwXd69MsI1K5TxujuzJPmZWMmk/sm/KapwGqol6E2UMcrGxLviP42Ecxx58rjxfr3quD46zf3OmgVbBWxs0kDtKsk=
-#   file: fast_woothee-*.tar.gz
-#   file_glob: true
-#   skip_cleanup: true
-#   on:
-#     condition: ${TRAVIS_TAG} =~ '-rust'
-#     repo: malept/fast_woothee
-#     tags: true
+  # - bundle exec rake install
+  # - |
+  #   if [[ -z "$TRAVIS_TAG" ]]; then
+  #     gem uninstall fast_woothee
+  #     CARGO=fake bundle exec rake install
+  #   fi
+  # - |
+  #   if [[ -z "$TRAVIS_TAG" ]]; then
+  #     gem uninstall fast_woothee
+  #     gem install minitest
+  #     CARGO=fake gem install pkg/*.gem
+  #     rspec spec
+  #   fi
+  # - |
+  #   if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then
+  #     cat $THERMITE_DEBUG_FILENAME;
+  #   fi
+deploy:
+  provider: releases
+  api_key:
+    secure: 3sPpXpRZ5FzEL3wYaGDD9jSXiPl9SLA4F0GME8JMnN69UyNPmqN5Dy5FHEN0HzQSn+RQ5hxkN3GFJgIZ1v7acJ66cgBJL5SCuol3qCeXg8dEYssOREeM5VFAwb4+y3gUNgD/nNmYJVHKZezVaLE/VOwCQyRj3BDqnlG0bVCzc9yjE81SmjUy9/ABBWRBrlC+tyrwAg+qaZLFg537RrAy4wFngr7xrilvnFxh4M+UCB1o7xzQbGBaunFf7K3+bG9mENBUdsr5fkMIr3HfXilBERpVbGXbMAhseprPQBlbTz1u96uQFuf892hIxQOtJxTAMlvOBOchFjnd/B4mm1oLEwLKJkPBC/hiGwXbM5MvWJxLnH1T6P9Hz9Vv7M3qLv7k3+/sNxnQ048AyH+IAVYXT85QGcRXlNQoQFUs6NBl4MC/izfcfLLcLbt5FBWWWofFguzgrGqJYdLk00QL+V8aQ/5kqwsOjaJTx46fLABBTfRmQTPZWOcJWta/ZCLK+MKpvVPbjInQyh9pLkfQrmjRNyNvdYpI8zGkd25EvUSo5fjLpx0pqHmptiyP6EmuD1PKPPR/lLuDknPZoh9l1kGseYYIzLPd164rfhrgtwSVArUusp/ZV1aUDUufIZGJSwz/AJwnX9h2hEQOQElr0f6PUA3a9MTvS6r+jMasASysm1I=
+  file: fast_woothee-*.tar.gz
+  file_glob: true
+  skip_cleanup: true
+  on:
+    repo: ianks/fast_woothee
+    tags: true
