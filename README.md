@@ -7,7 +7,9 @@ performant, and safe user-agent parsing.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Having Rust/Cargo installed is _optional_. If it is not installed, the gem will
+download the libs binary automatically. Simply add this line to your
+application's Gemfile:
 
 ```ruby
 gem 'fast_woothee'
