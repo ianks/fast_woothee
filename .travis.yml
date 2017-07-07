@@ -1,6 +1,5 @@
 ---
-group: deprecated-2017Q2
-sudo: false
+sudo: required
 language: rust
 os:
   - linux
