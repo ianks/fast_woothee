@@ -1,5 +1,6 @@
 # FastWoothee
 
+[![Gem Version](https://badge.fury.io/rb/fast_woothee.svg)](https://badge.fury.io/rb/fast_woothee)
 [![Build Status](https://travis-ci.org/ianks/fast_woothee.svg?branch=master)](https://travis-ci.org/ianks/fast_woothee)
 
 Ruby Bindings to [woothee-rust](https://github.com/hhatto/woothee-rust) for

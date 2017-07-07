@@ -11,14 +11,14 @@ env:
   global:
     - THERMITE_DEBUG_FILENAME: "/tmp/thermite-debug.log"
   matrix:
-    - WOOTHEE_RUBY_VERSION: 2.3.3
-    - WOOTHEE_RUBY_VERSION: 2.4.0
+    - WOOTHEE_RUBY_VERSION: 2.3.4
+    - WOOTHEE_RUBY_VERSION: 2.4.1
 matrix:
   include:
     - os: osx
-      env: WOOTHEE_RUBY_VERSION=2.3.3
+      env: WOOTHEE_RUBY_VERSION=2.3.4
     - os: osx
-      env: WOOTHEE_RUBY_VERSION=2.4.0
+      env: WOOTHEE_RUBY_VERSION=2.4.1
 cache:
   cargo: true
   directories:
@@ -26,7 +26,7 @@ cache:
     - "$HOME/.cache/pip"
 before_install:
   - |
-    rvm install "$WOOTHEE_RUBY_VERSION"
+    rvm reinstall "$WOOTHEE_RUBY_VERSION"
     rvm use "$WOOTHEE_RUBY_VERSION"
     ruby --version
     if [[ "$TRAVIS_OS_NAME" == "osx" ]] && ! which bundle > /dev/null; then
