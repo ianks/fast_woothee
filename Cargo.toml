@@ -9,7 +9,7 @@ publish = false
 crate-type = ["dylib"]
 
 [dependencies]
-woothee = "^0.6"
+woothee = "^0.7"
 ruru = "^0.9"
 
 
