@@ -1,4 +1,5 @@
 ---
+group: deprecated-2017Q2
 sudo: false
 language: rust
 os:
