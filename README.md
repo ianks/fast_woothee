@@ -31,6 +31,14 @@ FastWoothee.parse 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) Appl
 # {:name=>"Webview", :category=>"smartphone", :os=>"iPad", :os_version=>"3.2.1", :browser_type=>"browser", :version=>"UNKNOWN", :vendor=>"OS vendor"}
 ```
 
+## Benchmarks
+
+```
+                 user     system      total        real
+woothee      2.240000   0.020000   2.260000 (  2.261497)
+fast-woothee  1.100000   0.010000   1.110000 (  1.134596)
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run
