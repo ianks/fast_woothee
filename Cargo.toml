@@ -6,7 +6,7 @@ repository = "https://github.com/ianks/fast_woothee"
 publish = false
 
 [lib]
-crate-type = ["dylib"]
+crate-type = ["cdylib"]
 
 [dependencies]
 woothee = "^0.7"
@@ -15,4 +15,8 @@ ruru = "^0.9"
 
 [package.metadata.thermite]
 github_releases = true
-optional_rust_extension = true
+github_release_type = "latest"
+# Only for github_release_type = "cargo"
+# git_tag_format = "v%s-rust"
+git_tag_regex = "^v(\\d+\\.\\d+\\.\\d+)-rust$"
+
