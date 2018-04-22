@@ -18,7 +18,7 @@ begin
   RSpec::Core::RakeTask.new(:rspec)
 
   desc 'Run Rust & Ruby testsuites'
-  task spec: ['thermite:build', 'thermite:test'] do
+  task spec: ['thermite:build'] do
     Rake::Task[:rspec].invoke
   end
 rescue LoadError => _e
