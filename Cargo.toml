@@ -18,5 +18,5 @@ github_releases = true
 github_release_type = "latest"
 # Only for github_release_type = "cargo"
 # git_tag_format = "v%s-rust"
-git_tag_regex = "^v(\\d+\\.\\d+\\.\\d+)-rust$"
+git_tag_regex = "^v(\\d+\\.\\d+\\.\\d+)$"
 
