@@ -1,51 +1,98 @@
 ---
-sudo: required
+sudo: false
 language: rust
 os:
   - linux
   - osx
 dist: trusty
-osx_image: xcode8.2
+osx_image: xcode9.2
 rust: stable
 env:
   global:
-    - THERMITE_DEBUG_FILENAME: "/tmp/thermite-debug.log"
+    - THERMITE_DEBUG_FILENAME: /tmp/thermite-debug.log
   matrix:
-    - WOOTHEE_RUBY_VERSION: 2.3.4
-    - WOOTHEE_RUBY_VERSION: 2.4.1
+    - FWOOTHEE_RUBY_VERSION: 2.3.5
+    - FWOOTHEE_RUBY_VERSION: 2.4.2
+    - FWOOTHEE_RUBY_VERSION: 2.5.0
 matrix:
   include:
+    - os: linux
+      dist: trusty
+      env: FWOOTHEE_RUBY_VERSION=2.3.5 RUBY_STATIC=1
+    - os: linux
+      dist: trusty
+      env: FWOOTHEE_RUBY_VERSION=2.4.2 RUBY_STATIC=1
+    - os: linux
+      dist: trusty
+      env: FWOOTHEE_RUBY_VERSION=2.5.0 RUBY_STATIC=1
     - os: osx
-      env: WOOTHEE_RUBY_VERSION=2.3.4
+      osx_image: xcode8
+      env: FWOOTHEE_RUBY_VERSION=2.3.5
     - os: osx
-      env: WOOTHEE_RUBY_VERSION=2.4.1
+      osx_image: xcode9.3beta
+      env: FWOOTHEE_RUBY_VERSION=2.3.5
+    - os: osx
+      osx_image: xcode8
+      env: FWOOTHEE_RUBY_VERSION=2.3.5 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode9.2
+      env: FWOOTHEE_RUBY_VERSION=2.3.5 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode9.3beta
+      env: FWOOTHEE_RUBY_VERSION=2.3.5 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode8
+      env: FWOOTHEE_RUBY_VERSION=2.4.2
+    - os: osx
+      osx_image: xcode9.3beta
+      env: FWOOTHEE_RUBY_VERSION=2.4.2
+    - os: osx
+      osx_image: xcode8
+      env: FWOOTHEE_RUBY_VERSION=2.4.2 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode9.2
+      env: FWOOTHEE_RUBY_VERSION=2.4.2 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode9.3beta
+      env: FWOOTHEE_RUBY_VERSION=2.4.2 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode8
+      env: FWOOTHEE_RUBY_VERSION=2.5.0
+    - os: osx
+      osx_image: xcode9.3beta
+      env: FWOOTHEE_RUBY_VERSION=2.5.0
+    - os: osx
+      osx_image: xcode8
+      env: FWOOTHEE_RUBY_VERSION=2.5.0 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode9.2
+      env: FWOOTHEE_RUBY_VERSION=2.5.0 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode9.3beta
+      env: FWOOTHEE_RUBY_VERSION=2.5.0 RUBY_STATIC=1
+
 cache:
   cargo: true
   directories:
-    - "$TRAVIS_BUILD_DIR/vendor/bundle"
-    - "$HOME/.cache/pip"
+    - $TRAVIS_BUILD_DIR/vendor/bundle
+
 before_install:
   - |
-    rvm reinstall "$WOOTHEE_RUBY_VERSION"
-    rvm use "$WOOTHEE_RUBY_VERSION"
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update
+    fi
+    rvm install "$FWOOTHEE_RUBY_VERSION"
+    rvm use "$FWOOTHEE_RUBY_VERSION"
     ruby --version
     if [[ "$TRAVIS_OS_NAME" == "osx" ]] && ! which bundle > /dev/null; then
       gem install bundler
     fi
   - bundle install --jobs=3 --retry=3 --path=$TRAVIS_BUILD_DIR/vendor/bundle
-before_script:
-  - |
-    export PATH=$HOME/Library/Python/2.7/bin:$HOME/.local/bin:$PATH
-    if [[ "$TRAVIS_OS_NAME" == "osx" ]] && ! which pip > /dev/null; then
-      wget https://bootstrap.pypa.io/get-pip.py
-      python get-pip.py --user
-    fi
-    pip install 'travis-cargo<0.2' --user
+
 script:
-  - travis-cargo build
   - bundle exec rake spec
   - bundle exec rake thermite:tarball
-  # - bundle exec rake install
+  - bundle exec rake install
   # - |
   #   if [[ -z "$TRAVIS_TAG" ]]; then
   #     gem uninstall fast_woothee
@@ -54,21 +101,28 @@ script:
   # - |
   #   if [[ -z "$TRAVIS_TAG" ]]; then
   #     gem uninstall fast_woothee
-  #     gem install minitest
   #     CARGO=fake gem install pkg/*.gem
-  #     rspec spec
+  #     bundle exec rake spec
   #   fi
-  # - |
-  #   if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then
-  #     cat $THERMITE_DEBUG_FILENAME;
-  #   fi
+  - if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then cat $THERMITE_DEBUG_FILENAME; fi
+
 deploy:
-  provider: releases
-  api_key:
-    secure: 3sPpXpRZ5FzEL3wYaGDD9jSXiPl9SLA4F0GME8JMnN69UyNPmqN5Dy5FHEN0HzQSn+RQ5hxkN3GFJgIZ1v7acJ66cgBJL5SCuol3qCeXg8dEYssOREeM5VFAwb4+y3gUNgD/nNmYJVHKZezVaLE/VOwCQyRj3BDqnlG0bVCzc9yjE81SmjUy9/ABBWRBrlC+tyrwAg+qaZLFg537RrAy4wFngr7xrilvnFxh4M+UCB1o7xzQbGBaunFf7K3+bG9mENBUdsr5fkMIr3HfXilBERpVbGXbMAhseprPQBlbTz1u96uQFuf892hIxQOtJxTAMlvOBOchFjnd/B4mm1oLEwLKJkPBC/hiGwXbM5MvWJxLnH1T6P9Hz9Vv7M3qLv7k3+/sNxnQ048AyH+IAVYXT85QGcRXlNQoQFUs6NBl4MC/izfcfLLcLbt5FBWWWofFguzgrGqJYdLk00QL+V8aQ/5kqwsOjaJTx46fLABBTfRmQTPZWOcJWta/ZCLK+MKpvVPbjInQyh9pLkfQrmjRNyNvdYpI8zGkd25EvUSo5fjLpx0pqHmptiyP6EmuD1PKPPR/lLuDknPZoh9l1kGseYYIzLPd164rfhrgtwSVArUusp/ZV1aUDUufIZGJSwz/AJwnX9h2hEQOQElr0f6PUA3a9MTvS6r+jMasASysm1I=
-  file: fast_woothee-*.tar.gz
-  file_glob: true
-  skip_cleanup: true
-  on:
-    repo: ianks/fast_woothee
-    tags: true
+  - provider: releases
+    api_key:
+      secure: Dy3Ljq0N023aRdLbJOGB9zp7+JNlN0w4Bg07OKOBj6RSGWjSgzTQbHT5xY2ZRaSeo0gmgiSxjePdo0GL4k3hL3k7SiHBwE17dUHURYY9PV+Cszy8ygV1Jqr5z7KUmSJrmBEZ9rK/Dg9ZJgsMVHfLZZJYM5QYxAwWrPhXdTFQltZB/b6PwEID7/kyug+jWo8DqH4iyoqLEyNPB8LdS/ksqg/VvMAWNvHlnDlvHTO5Cq1BAzvtzxxY5GjOfhzBGuPLYjeQZiEJ4Ljcg3JJSU3W2rU7El3Yew2PCnV1U5AdUdG0Lm9TecUQ+WK7Zfz/dSsOdzQWWp1x37BqnNmPh9KQqrhP18X795foKm6wDWcEs6ABq5uxmWtDN9/x5l2t8OY5VmqlfoBgyntISpOIXxJB2PA/hJGiw5tMAXNw6jUonG5xYa93Av+NopcC5FJd+NQRv6knTPEtRS5ZY8XY2fNldIqY2vRGlpOmk8EQDnbsPbyqH9dDc7eJWSPZV3FEdgxTUe5EbGUvO47jWZFhRe2aj/9y/uy6yTLNTvO9B1zoC2/MGq9Y3/Tacd9Stf8LTWnze11Y3SQT/xhFm+QMk10N7aHT58KwLYlC+rcH76C2w7avGAX0rEpkVg3iIMCL246O9iWktxwHkmjXlF04ME4wO9VzGYUva6tQt6wIxle6Z+s=
+    file: fast_woothee-*.tar.gz
+    file_glob: true
+    skip_cleanup: true
+    on:
+      repo: ianks/fast_woothee
+      branch: master
+      tags: true
+
+  - provider: rubygems
+    api_key:
+      secure: ffojlgGkfjcxCHf5kW7sfDB2I+K2g/YvqzIz/sOaTHcTbYjIVJHzgYkIXqqsqdGOFe8zSS/wi6Ax6N7fEqmSdanL9+U552/5Lodgoj0GdulV1dGeDt8Q71t+RJ2rbK5xdIkXcMcA0HL5LW7eQ6pzIjXryJ5Ro+sBGY8ZqCPtEal6mmUh3c8rXZICxmR69Z6IAhX2hipQIQ258ZzzWVoWjSYez7eSWtjMjrXqPokqfVmJRF26lQJdUO0UPdp6wsfY4a6Xxms/PUXimTas7WusgCPtHb4ygHJY5iRTjFQX/fDwnynDF3GlNfXufIn1qF6b9Hq10yDN3SHIdeIDrDmXJqnbqaWmyKzeorEonGX/GzXO8qaTS5zwuYjDYwpBQ266HPdFR82uPY+dDiJk+k3lTs3NBq+FHmzWUm1bFAKkzzsu8CytCKsl6SOuXWzuhwBWWNh82N3aGcAzhVz8dzcugWNCnt0SqjfyhuaeW+bgvQ7XmHE20Ocea8DD66fP8S5r2gb3NWBhwe4l5cd9eHGbekgyF4ZIIU4Sj8QuMW7M5dHU9gp+ZJkCJnREtrH1JSLILSoNJkd1dy75AofrK+GmpkVzbPmcZzet5g6Be5F32zQ/WRe1ZR1ytebUUr37FOCePWHgRmqGNYQ4ui+UBUHxjgJBxr+8Z8efLG/ZzJ4YxEo=
+    gem: fast_woothee
+    on:
+      repo: ianks/fast_woothee
+      branch: master
+      tags: true
