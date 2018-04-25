@@ -11,9 +11,9 @@ env:
   global:
     - THERMITE_DEBUG_FILENAME: /tmp/thermite-debug.log
   matrix:
-    - FWOOTHEE_RUBY_VERSION: 2.3.5
-    - FWOOTHEE_RUBY_VERSION: 2.4.2
-    - FWOOTHEE_RUBY_VERSION: 2.5.0
+    - FWOOTHEE_RUBY_VERSION: 2.3.6
+    - FWOOTHEE_RUBY_VERSION: 2.4.3
+    - FWOOTHEE_RUBY_VERSION: 2.5.1
 matrix:
   include:
     - os: linux
