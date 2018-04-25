@@ -93,17 +93,17 @@ script:
   - bundle exec rake spec
   - bundle exec rake thermite:tarball
   - bundle exec rake install
-  - |
-    if [[ -z "$TRAVIS_TAG" ]]; then
-      gem uninstall fast_woothee
-      CARGO=fake bundle exec rake install
-    fi
-  - |
-    if [[ -z "$TRAVIS_TAG" ]]; then
-      gem uninstall fast_woothee
-      CARGO=fake gem install pkg/*.gem
-      bundle exec rake spec
-    fi
+  # - |
+  #   if [[ -z "$TRAVIS_TAG" ]]; then
+  #     gem uninstall fast_woothee
+  #     CARGO=fake bundle exec rake install
+  #   fi
+  # - |
+  #   if [[ -z "$TRAVIS_TAG" ]]; then
+  #     gem uninstall fast_woothee
+  #     CARGO=fake gem install pkg/*.gem
+  #     bundle exec rake spec
+  #   fi
   - if [[ -f "$THERMITE_DEBUG_FILENAME" ]]; then cat $THERMITE_DEBUG_FILENAME; fi
 
 deploy:
