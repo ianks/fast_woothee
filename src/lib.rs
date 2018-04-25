@@ -42,7 +42,7 @@ methods!(
 #[no_mangle]
 pub extern fn initialize_fast_woothee() {
     Class::new("FastWoothee", None).define(|itself| {
-        itself.const_set("VERSION", &RString::new("1.2.0").freeze());
+        itself.const_set("VERSION", &RString::new("1.3.0").freeze());
         itself.def_self("parse", parse);
         itself.def_self("crawler?", crawler);
     });
