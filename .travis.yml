@@ -114,6 +114,5 @@ deploy:
   file_glob: true
   skip_cleanup: true
   on:
-    condition: ${TRAVIS_TAG} =~ '-rust'
     repo: ianks/fast_woothee
     tags: true
