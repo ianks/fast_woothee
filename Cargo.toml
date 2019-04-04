@@ -1,6 +1,6 @@
 [package]
 name = "fast_woothee"
-version = "1.3.2"
+version = "1.4.0"
 authors = ["Ian Ker-Seymer <i.kerseymer@gmail.com>"]
 repository = "https://github.com/ianks/fast_woothee"
 publish = false
@@ -9,7 +9,7 @@ publish = false
 crate-type = ["dylib"]
 
 [dependencies]
-woothee = "^0.7"
+woothee = "^0.8"
 ruru = "^0.9"
 
 [package.metadata.thermite]
