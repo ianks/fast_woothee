@@ -9,7 +9,7 @@ publish = false
 crate-type = ["dylib"]
 
 [dependencies]
-woothee = "^0.8"
+woothee = { git = "https://github.com/woothee/woothee-rust" }
 ruru = "^0.9"
 
 [package.metadata.thermite]
