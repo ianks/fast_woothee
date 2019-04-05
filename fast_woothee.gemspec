@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'fast_woothee'
-  spec.version       = '1.4.8'
+  spec.version       = '1.4.9'
   spec.authors       = ['Ian Ker-Seymer']
   spec.email         = ['i.kerseymer@gmail.com']
 
@@ -20,8 +20,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
-  spec.extensions = ['extconf.rb']
+  spec.extensions = ['Rakefile']
 
+  spec.add_runtime_dependency 'thermite', '~> 0'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'ffi', '~> 1.9'
@@ -30,5 +31,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rake-compiler'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'thermite', '~> 0'
 end

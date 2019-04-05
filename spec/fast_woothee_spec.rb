@@ -2,8 +2,9 @@
 require "spec_helper"
 require 'yaml'
 
-def each_target
-  targets = Dir['woothee/testsets/*.yaml']
+def each_target(pattern = "*")
+  targets = Dir["woothee/testsets/#{pattern}.yaml"]
+  raise 'No targets' if targets.empty?
 
   targets.each do |filename|
     YAML.load_file(filename).each do |e|
@@ -43,9 +44,21 @@ describe FastWoothee do
     end
   end
 
-  describe "#is_safari_mobile" do
-    it "detects when it is an iphone" do
-      expect(FastWoothee.ios?("Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1")).to be(true)
+  describe "#ios?" do
+    each_target(:smartphone_ios) do |e, groupname|
+      it "#{e['target']}" do
+        expect(FastWoothee.ios?(e['target'])).to eq(true)
+        expect(FastWoothee.android?(e['target'])).to eq(false)
+      end
+    end
+  end
+
+  describe "#android?" do
+    each_target(:smartphone_android) do |e, groupname|
+      it "#{e['target']}" do
+        expect(FastWoothee.android?(e['target'])).to eq(true)
+        expect(FastWoothee.ios?(e['target'])).to eq(false)
+      end
     end
   end
 end

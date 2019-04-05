@@ -52,6 +52,25 @@ methods!(
                     "iPod" => Boolean::new(true),
                     "iPad" => Boolean::new(true),
                     "iPhone" => Boolean::new(true),
+                    "iOS" => Boolean::new(true),
+                    _ => Boolean::new(false)
+                }
+            }
+        }
+    }
+);
+
+methods!(
+    FastWoothee,
+    _itself,
+    fn is_android(ua_string: RString) -> Boolean {
+        let parser = Parser::new();
+
+        match parser.parse(ua_string.unwrap_or(RString::new("")).to_str()) {
+            None => Boolean::new(false),
+            Some(result) => {
+                match result.os {
+                    "Android" => Boolean::new(true),
                     _ => Boolean::new(false)
                 }
             }
@@ -62,9 +81,10 @@ methods!(
 #[no_mangle]
 pub extern fn initialize_fast_woothee() {
     Class::new("FastWoothee", None).define(|itself| {
-        itself.const_set("VERSION", &RString::new("1.4.8").freeze());
+        itself.const_set("VERSION", &RString::new("1.4.9").freeze());
         itself.def_self("parse", parse);
         itself.def_self("crawler?", is_crawler);
         itself.def_self("ios?", is_ios);
+        itself.def_self("android?", is_android);
     });
 }

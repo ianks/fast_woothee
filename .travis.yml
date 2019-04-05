@@ -91,7 +91,7 @@ before_install:
 script:
   - bundle exec rake spec
   - bundle exec rake thermite:tarball
-  - bundle exec rake build
+  - bundle exec rake install
   # - |
   #   if [[ -z "$TRAVIS_TAG" ]]; then
   #     gem uninstall fast_woothee

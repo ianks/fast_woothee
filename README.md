@@ -41,6 +41,11 @@ FastWoothee.crawler?("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google
 FastWoothee.ios?("Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4") # => true
 ```
 
+```ruby
+# Is the user on Android?
+FastWoothee.android?('Mozilla/5.0 (Linux; Android 9; SM-N960F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.105 Mobile Safari/537.36') # => true
+```
+
 ## Benchmarks
 
 ```
