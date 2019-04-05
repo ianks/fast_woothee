@@ -17,6 +17,7 @@ orbs:
           version: <<parameters.ruby_version >>
         steps:
           - checkout
+          - run: git submodule update --init --recursive
           - run: curl https://sh.rustup.rs -sSf | sh -s -- -y
           - when:
               condition: << parameters.ruby_static >>
