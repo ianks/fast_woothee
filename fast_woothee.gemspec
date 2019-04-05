@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'fast_woothee'
-  spec.version       = '1.4.9'
+  spec.version       = '1.5.0'
   spec.authors       = ['Ian Ker-Seymer']
   spec.email         = ['i.kerseymer@gmail.com']
 
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.extensions = ['Rakefile']
 
-  spec.add_runtime_dependency 'thermite', '~> 0'
+  spec.add_runtime_dependency 'thermite', '~> 0.13.0'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'ffi', '~> 1.9'
