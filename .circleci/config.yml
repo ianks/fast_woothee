@@ -1,0 +1,64 @@
+---
+version: 2.1
+
+orbs:
+  matrix:
+    jobs:
+      execute:
+        parameters:
+          ruby_version:
+            description: Version of Ruby to use
+            type: string
+          ruby_static:
+            description: Whether to compile statically
+            type: boolean
+        executor:
+          name: ruby
+          version: <<parameters.ruby_version >>
+        steps:
+          - checkout
+          - run: curl https://sh.rustup.rs -sSf | sh -s -- -y
+          - when:
+              condition: << parameters.ruby_static >>
+              steps:
+                - run: echo 'export RUBY_STATIC=1' >> $BASH_ENV
+          - run:
+              background: true
+              command: |
+                touch "$THERMITE_DEBUG_FILENAME"
+                tail -f "$THERMITE_DEBUG_FILENAME"
+          - run: bundle install --jobs 3 --retry 3 --path=vendor/bundle
+          - run: bundle exec rake spec
+          - run: bundle exec rake thermite:tarball
+          - run: bundle exec rake install
+    executors:
+      ruby:
+        parameters:
+          version:
+            type: string
+        docker:
+          - image: circleci/ruby:<<parameters.version>>
+            environment:
+              THERMITE_DEBUG_FILENAME: /tmp/thermite-debug.log
+
+workflows:
+  build-test-deploy:
+    jobs:
+      - matrix/execute:
+          ruby_version: "2.4"
+          ruby_static: true
+      - matrix/execute:
+          ruby_version: "2.4"
+          ruby_static: false
+      - matrix/execute:
+          ruby_version: "2.5"
+          ruby_static: true
+      - matrix/execute:
+          ruby_version: "2.5"
+          ruby_static: false
+      - matrix/execute:
+          ruby_version: "2.6"
+          ruby_static: true
+      - matrix/execute:
+          ruby_version: "2.6"
+          ruby_static: false
