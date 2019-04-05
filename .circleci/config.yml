@@ -12,11 +12,19 @@ orbs:
           ruby_static:
             description: Whether to compile a static binary
             type: boolean
+          os:
+            description: Operating system
+            type: string
         executor:
-          name: ruby
+          name: << parameters.os >>
           version: <<parameters.ruby_version >>
         steps:
           - checkout
+          - run: |
+              if [ -x "$(command -v brew)" ]; then
+                curl -sSL https://get.rvm.io | bash
+                rvm install <<parameters.ruby_version>>
+              fi
           - run: git submodule update --init --recursive
           - run: curl https://sh.rustup.rs -sSf | sh -s -- -y
           - when:
@@ -45,7 +53,13 @@ orbs:
           - run: bundle exec rake thermite:tarball
           - run: bundle exec rake install
     executors:
-      ruby:
+      osx:
+        parameters:
+          version:
+            type: string
+        macos:
+          xcode: "9.2"
+      linux:
         parameters:
           version:
             type: string
@@ -63,18 +77,49 @@ workflows:
       - matrix/execute:
           ruby_version: "2.4"
           ruby_static: true
+          os: 'linux'
       - matrix/execute:
           ruby_version: "2.4"
           ruby_static: false
+          os: 'linux'
       - matrix/execute:
           ruby_version: "2.5"
           ruby_static: true
+          os: 'linux'
       - matrix/execute:
           ruby_version: "2.5"
           ruby_static: false
+          os: 'linux'
       - matrix/execute:
           ruby_version: "2.6"
           ruby_static: true
+          os: 'linux'
       - matrix/execute:
           ruby_version: "2.6"
           ruby_static: false
+          os: 'linux'
+
+      - matrix/execute:
+          ruby_version: "2.4"
+          ruby_static: true
+          os: 'osx'
+      - matrix/execute:
+          ruby_version: "2.4"
+          ruby_static: false
+          os: 'osx'
+      - matrix/execute:
+          ruby_version: "2.5"
+          ruby_static: true
+          os: 'osx'
+      - matrix/execute:
+          ruby_version: "2.5"
+          ruby_static: false
+          os: 'osx'
+      - matrix/execute:
+          ruby_version: "2.6"
+          ruby_static: true
+          os: 'osx'
+      - matrix/execute:
+          ruby_version: "2.6"
+          ruby_static: false
+          os: 'osx'
