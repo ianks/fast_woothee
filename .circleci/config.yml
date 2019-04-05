@@ -27,7 +27,19 @@ orbs:
               command: |
                 touch "$THERMITE_DEBUG_FILENAME"
                 tail -f "$THERMITE_DEBUG_FILENAME"
-          - run: bundle install --jobs 3 --retry 3 --path=vendor/bundle
+          - run: gem update --system
+          - run: gem install bundler
+          - restore_cache:
+              keys:
+                - bundler-{{ arch }}-<< parameters.ruby_version >>-{{ checksum "Gemfile.lock" }}
+                - bundler-{{ arch }}-<< parameters.ruby_version >>
+          - run:
+              name: Bundle Install
+              command: bundle check || bundle install
+          - save_cache:
+              key: bundler-{{ arch }}-<< parameters.ruby_version >>-{{ checksum "Gemfile.lock" }}
+              paths:
+                - vendor/bundle
           - run: bundle exec rake spec
           - run: bundle exec rake thermite:tarball
           - run: bundle exec rake install
@@ -40,6 +52,9 @@ orbs:
           - image: circleci/ruby:<<parameters.version>>
             environment:
               THERMITE_DEBUG_FILENAME: /tmp/thermite-debug.log
+              BUNDLE_JOBS: 3
+              BUNDLE_RETRY: 3
+              BUNDLE_PATH: vendor/bundle
 
 workflows:
   build-test-deploy:
