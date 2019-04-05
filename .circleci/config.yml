@@ -22,8 +22,9 @@ orbs:
           - checkout
           - run: |
               if [ -x "$(command -v brew)" ]; then
-                curl -sSL https://get.rvm.io | bash
-                rvm install <<parameters.ruby_version>>
+                brew install ruby-install
+                ruby-install ruby <<parameters.ruby_version>>
+                echo ruby-<<parameters.ruby_version>> > ~/.ruby-version
               fi
           - run: git submodule update --init --recursive
           - run: curl https://sh.rustup.rs -sSf | sh -s -- -y
