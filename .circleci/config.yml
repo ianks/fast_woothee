@@ -10,7 +10,7 @@ orbs:
             description: Version of Ruby to use
             type: string
           ruby_static:
-            description: Whether to compile statically
+            description: Whether to compile a static binary
             type: boolean
         executor:
           name: ruby
