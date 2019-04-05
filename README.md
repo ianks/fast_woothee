@@ -31,6 +31,16 @@ FastWoothee.parse 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) Appl
 # {:name=>"Webview", :category=>"smartphone", :os=>"iPad", :os_version=>"3.2.1", :browser_type=>"browser", :version=>"UNKNOWN", :vendor=>"OS vendor"}
 ```
 
+```ruby
+# Determine if it is a crawler
+FastWoothee.crawler?("Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html") # => true
+```
+
+```ruby
+# Is the user on iOS?
+FastWoothee.ios?("Mozilla/5.0 (iPhone; CPU iPhone OS 8_1 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12B411 Safari/600.1.4") # => true
+```
+
 ## Benchmarks
 
 ```
