@@ -25,12 +25,4 @@ rescue LoadError => _e
   nil
 end
 
-task :default do
-  require 'mkmf'
-
-  if arg_config('--download-binary')
-    ENV['CARGO'] = '/dev/null'
-  end
-
-  Rake::Task['thermite:build'].invoke
-end
+task :default => 'thermite:build'
