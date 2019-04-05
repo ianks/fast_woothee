@@ -84,7 +84,7 @@ before_install:
     rvm install "$FWOOTHEE_RUBY_VERSION"
     rvm use "$FWOOTHEE_RUBY_VERSION"
     ruby --version
-    gem install bundler
+  - bundle update --bundler
   - bundle install --jobs=3 --retry=3 --path=$TRAVIS_BUILD_DIR/vendor/bundle
 
 script:
