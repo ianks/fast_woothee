@@ -12,5 +12,9 @@ crate-type = ["dylib"]
 woothee = { git = "https://github.com/woothee/woothee-rust" }
 ruru = "^0.9"
 
+[patch.crates-io]
+ruru = { git = "https://github.com/d-unseductable/ruru", branch = "master" }
+ruby-sys = { git = "http://github.com/steveklabnik/ruby-sys", branch = "master" }
+
 [package.metadata.thermite]
 github_releases = true
