@@ -24,6 +24,8 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'thermite', '~> 0.13.0'
 
+  spec.add_dependency 'rutie', '~> 0.0.3'
+
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'ffi', '~> 1.9'
   spec.add_development_dependency 'pry'

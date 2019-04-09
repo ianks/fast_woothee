@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-require 'fiddle'
+require 'rutie'
 
-gem_root = File.dirname(File.dirname(__FILE__))
-extension_path = File.join(gem_root, 'lib/fast_woothee.so')
-library = ::Fiddle.dlopen(extension_path)
-initalize_func = library['initialize_fast_woothee']
-::Fiddle::Function.new(initalize_func, [], ::Fiddle::TYPE_VOIDP).call
+module FastWoothee
+  VERSION = "1.5.1"
+
+  Rutie.new(:fast_woothee).init 'Init_fast_woothee', __dir__
+end
+
