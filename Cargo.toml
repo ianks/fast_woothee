@@ -10,11 +10,10 @@ crate-type = ["dylib"]
 
 [dependencies]
 woothee = { git = "https://github.com/woothee/woothee-rust" }
-ruru = "^0.9"
+rutie = { version = "0.7.0", features = ["no-link"] }
 
 [patch.crates-io]
-ruru = { git = "https://github.com/d-unseductable/ruru", branch = "master" }
-ruby-sys = { git = "http://github.com/steveklabnik/ruby-sys", branch = "master" }
+rutie = { git = "https://github.com/danielpclark/rutie", branch = "master" }
 
 [package.metadata.thermite]
 github_releases = true

@@ -13,12 +13,17 @@ env:
   matrix:
     - FWOOTHEE_RUBY_VERSION: 2.4.6
     - FWOOTHEE_RUBY_VERSION: 2.5.2
-    - FWOOTHEE_RUBY_VERSION: 2.6.2
+    - FWOOTHEE_RUBY_VERSION: 2.6.6
+    - FWOOTHEE_RUBY_VERSION: 2.7.1
+
 matrix:
   include:
     - os: linux
       dist: trusty
-      env: FWOOTHEE_RUBY_VERSION=2.6.2 RUBY_STATIC=1
+      env: FWOOTHEE_RUBY_VERSION=2.7.1 RUBY_STATIC=1
+    - os: linux
+      dist: trusty
+      env: FWOOTHEE_RUBY_VERSION=2.6.6 RUBY_STATIC=1
     - os: linux
       dist: trusty
       env: FWOOTHEE_RUBY_VERSION=2.4.6 RUBY_STATIC=1
@@ -27,19 +32,19 @@ matrix:
       env: FWOOTHEE_RUBY_VERSION=2.5.2 RUBY_STATIC=1
     - os: osx
       osx_image: xcode8
-      env: FWOOTHEE_RUBY_VERSION=2.6.2
+      env: FWOOTHEE_RUBY_VERSION=2.6.6
     - os: osx
       osx_image: xcode9.3beta
-      env: FWOOTHEE_RUBY_VERSION=2.6.2
+      env: FWOOTHEE_RUBY_VERSION=2.6.6
     - os: osx
       osx_image: xcode8
-      env: FWOOTHEE_RUBY_VERSION=2.6.2 RUBY_STATIC=1
+      env: FWOOTHEE_RUBY_VERSION=2.6.6 RUBY_STATIC=1
     - os: osx
       osx_image: xcode9.2
-      env: FWOOTHEE_RUBY_VERSION=2.6.2 RUBY_STATIC=1
+      env: FWOOTHEE_RUBY_VERSION=2.6.6 RUBY_STATIC=1
     - os: osx
       osx_image: xcode9.3beta
-      env: FWOOTHEE_RUBY_VERSION=2.6.2 RUBY_STATIC=1
+      env: FWOOTHEE_RUBY_VERSION=2.6.6 RUBY_STATIC=1
     - os: osx
       osx_image: xcode8
       env: FWOOTHEE_RUBY_VERSION=2.4.6
@@ -70,6 +75,21 @@ matrix:
     - os: osx
       osx_image: xcode9.3beta
       env: FWOOTHEE_RUBY_VERSION=2.5.2 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode8
+      env: FWOOTHEE_RUBY_VERSION=2.7.1
+    - os: osx
+      osx_image: xcode9.3beta
+      env: FWOOTHEE_RUBY_VERSION=2.7.1
+    - os: osx
+      osx_image: xcode8
+      env: FWOOTHEE_RUBY_VERSION=2.7.1 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode9.2
+      env: FWOOTHEE_RUBY_VERSION=2.7.1 RUBY_STATIC=1
+    - os: osx
+      osx_image: xcode9.3beta
+      env: FWOOTHEE_RUBY_VERSION=2.7.1 RUBY_STATIC=1
 
 cache:
   cargo: true
