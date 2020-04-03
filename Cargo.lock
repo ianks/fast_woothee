@@ -10,7 +10,7 @@ dependencies = [
 
 [[package]]
 name = "fast_woothee"
-version = "1.5.1"
+version = "1.6.0"
 dependencies = [
  "rutie 0.7.0 (git+https://github.com/danielpclark/rutie)",
  "woothee 0.11.0 (git+https://github.com/woothee/woothee-rust)",

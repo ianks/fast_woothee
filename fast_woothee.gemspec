@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'fast_woothee'
-  spec.version       = '1.5.1'
+  spec.version       = '1.6.0'
   spec.authors       = ['Ian Ker-Seymer']
   spec.email         = ['i.kerseymer@gmail.com']
 
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'ffi', '~> 1.9'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-doc'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rake-compiler'
   spec.add_development_dependency 'rspec', '~> 3.0'
 end
