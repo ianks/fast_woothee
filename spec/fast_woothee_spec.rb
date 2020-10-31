@@ -14,7 +14,7 @@ def each_target(pattern = "*")
 end
 
 known_failures = [
-  # https://github.com/woothee/woothee-rust/issues/14
+#   # https://github.com/woothee/woothee-rust/issues/14
   "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 YaBrowser/17.11.1.1087 (beta) Yowser/2.5 Safari/537.36"
 ]
 

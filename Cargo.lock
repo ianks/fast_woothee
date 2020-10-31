@@ -13,7 +13,7 @@ name = "fast_woothee"
 version = "1.6.0"
 dependencies = [
  "rutie 0.8.1 (git+https://github.com/danielpclark/rutie)",
- "woothee 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "woothee 0.11.0 (git+https://github.com/woothee/woothee-rust)",
 ]
 
 [[package]]
@@ -67,7 +67,7 @@ dependencies = [
 [[package]]
 name = "woothee"
 version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
+source = "git+https://github.com/woothee/woothee-rust#3d6536fd67f3c7dda3f81f3b2e60a4187758ec61"
 dependencies = [
  "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 1.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -82,4 +82,4 @@ dependencies = [
 "checksum regex-syntax 0.6.20 (registry+https://github.com/rust-lang/crates.io-index)" = "8cab7a364d15cde1e505267766a2d3c4e22a843e1a601f0fa7564c0f82ced11c"
 "checksum rutie 0.8.1 (git+https://github.com/danielpclark/rutie)" = "<none>"
 "checksum thread_local 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "d40c6d1b69745a6ec6fb1ca717914848da4b44ae29d9b3080cbee91d72a69b14"
-"checksum woothee 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)" = "89d5a45c5d9c772e577c263597681448fd91a46aed911783394eec396e45d4ee"
+"checksum woothee 0.11.0 (git+https://github.com/woothee/woothee-rust)" = "<none>"
