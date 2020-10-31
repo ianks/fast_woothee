@@ -9,11 +9,8 @@ publish = false
 crate-type = ["dylib"]
 
 [dependencies]
-woothee = { git = "https://github.com/woothee/woothee-rust" }
-rutie = { version = "0.7.0", features = ["no-link"] }
-
-[patch.crates-io]
-rutie = { git = "https://github.com/danielpclark/rutie", branch = "master" }
+woothee = "0.11.0"
+rutie = { git = "https://github.com/danielpclark/rutie", feature = ["no-link"] }
 
 [package.metadata.thermite]
 github_releases = true
