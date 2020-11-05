@@ -137,11 +137,12 @@ deploy:
       branch: master
       tags: true
 
-  - provider: rubygems
-    api_key:
-      secure: ffojlgGkfjcxCHf5kW7sfDB2I+K2g/YvqzIz/sOaTHcTbYjIVJHzgYkIXqqsqdGOFe8zSS/wi6Ax6N7fEqmSdanL9+U552/5Lodgoj0GdulV1dGeDt8Q71t+RJ2rbK5xdIkXcMcA0HL5LW7eQ6pzIjXryJ5Ro+sBGY8ZqCPtEal6mmUh3c8rXZICxmR69Z6IAhX2hipQIQ258ZzzWVoWjSYez7eSWtjMjrXqPokqfVmJRF26lQJdUO0UPdp6wsfY4a6Xxms/PUXimTas7WusgCPtHb4ygHJY5iRTjFQX/fDwnynDF3GlNfXufIn1qF6b9Hq10yDN3SHIdeIDrDmXJqnbqaWmyKzeorEonGX/GzXO8qaTS5zwuYjDYwpBQ266HPdFR82uPY+dDiJk+k3lTs3NBq+FHmzWUm1bFAKkzzsu8CytCKsl6SOuXWzuhwBWWNh82N3aGcAzhVz8dzcugWNCnt0SqjfyhuaeW+bgvQ7XmHE20Ocea8DD66fP8S5r2gb3NWBhwe4l5cd9eHGbekgyF4ZIIU4Sj8QuMW7M5dHU9gp+ZJkCJnREtrH1JSLILSoNJkd1dy75AofrK+GmpkVzbPmcZzet5g6Be5F32zQ/WRe1ZR1ytebUUr37FOCePWHgRmqGNYQ4ui+UBUHxjgJBxr+8Z8efLG/ZzJ4YxEo=
-    gem: fast_woothee
-    on:
-      repo: ianks/fast_woothee
-      branch: master
-      tags: true
+  # - provider: rubygems
+  #   api_key:
+  #     secure: ffojlgGkfjcxCHf5kW7sfDB2I+K2g/YvqzIz/sOaTHcTbYjIVJHzgYkIXqqsqdGOFe8zSS/wi6Ax6N7fEqmSdanL9+U552/5Lodgoj0GdulV1dGeDt8Q71t+RJ2rbK5xdIkXcMcA0HL5LW7eQ6pzIjXryJ5Ro+sBGY8ZqCPtEal6mmUh3c8rXZICxmR69Z6IAhX2hipQIQ258ZzzWVoWjSYez7eSWtjMjrXqPokqfVmJRF26lQJdUO0UPdp6wsfY4a6Xxms/PUXimTas7WusgCPtHb4ygHJY5iRTjFQX/fDwnynDF3GlNfXufIn1qF6b9Hq10yDN3SHIdeIDrDmXJqnbqaWmyKzeorEonGX/GzXO8qaTS5zwuYjDYwpBQ266HPdFR82uPY+dDiJk+k3lTs3NBq+FHmzWUm1bFAKkzzsu8CytCKsl6SOuXWzuhwBWWNh82N3aGcAzhVz8dzcugWNCnt0SqjfyhuaeW+bgvQ7XmHE20Ocea8DD66fP8S5r2gb3NWBhwe4l5cd9eHGbekgyF4ZIIU4Sj8QuMW7M5dHU9gp+ZJkCJnREtrH1JSLILSoNJkd1dy75AofrK+GmpkVzbPmcZzet5g6Be5F32zQ/WRe1ZR1ytebUUr37FOCePWHgRmqGNYQ4ui+UBUHxjgJBxr+8Z8efLG/ZzJ4YxEo=
+  #   gem: fast_woothee
+  #   on:
+  #     repo: ianks/fast_woothee
+  #     branch: master
+  #     tags: true
+  #     condition: $FWOOTHEE_RUBY_VERSION = "2.7.1"
