@@ -44,17 +44,6 @@ jobs:
           bundle exec rake install
           echo "::set-output name=tarball::$(echo fast_woothee-*.tar.gz)"
 
-      - name: 🛳 Publish to RubyGems
-        env:
-          GEM_HOST_API_KEY: ${{secrets.RUBYGEMS_AUTH_TOKEN}}
-        run: |
-          mkdir -p $HOME/.gem
-          touch $HOME/.gem/credentials
-          chmod 0600 $HOME/.gem/credentials
-          printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-          ${{ matrix.static }}
-          bundle exec rake release
-
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
