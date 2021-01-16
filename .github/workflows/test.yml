@@ -1,0 +1,43 @@
+---
+name: Test
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        ruby: ['2.5', '2.6', '2.7']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: 💎 Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: 🥏 Install deps
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: 📝 Run specs
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rake spec
+
+      - name: 📦 Package it
+        run: |
+          bundle exec rake thermite:tarball
+          bundle exec rake install
