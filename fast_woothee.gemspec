@@ -22,7 +22,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.extensions = ['Rakefile']
 
-  spec.add_runtime_dependency 'thermite', '~> 0.13.0'
+  spec.add_dependency 'thermite'
+  spec.add_dependency 'rexml'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'ffi', '~> 1.9'
