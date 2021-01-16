@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest]
-        ruby: ['2.5', '2.6', '2.7', '3.0']
+        ruby: ['2.5', '2.6', '2.7']
         static: ['0', '1']
     runs-on: ${{ matrix.os }}
 
@@ -48,16 +48,21 @@ jobs:
           touch $HOME/.gem/credentials
           chmod 0600 $HOME/.gem/credentials
           printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
-          # bundle exec rake release
+          bundle exec rake release
         env:
           GEM_HOST_API_KEY: ${{secrets.RUBYGEMS_AUTH_TOKEN}}
+
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: https://github.com/ianks/fast_woothee/releases/tag/${{ steps.get_version.outputs.VERSION }}/assets
           asset_path: ${{ steps.package.outputs.tarball }}
           asset_name: ${{ steps.package.outputs.tarball }}
           asset_content_type: application/x-gzip
