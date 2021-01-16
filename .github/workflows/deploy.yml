@@ -11,10 +11,11 @@ jobs:
   build:
     name: Build and Push to RubyGems
     strategy:
-        matrix:
-          os: [macos-latest, ubuntu-latest]
-          ruby: ['2.5', '2.6', '2.7', '3.0']
-          static: ['0', '1']
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        ruby: ['2.5', '2.6', '2.7', '3.0']
+        static: ['0', '1']
     runs-on: ${{ matrix.os }}
 
     steps:
