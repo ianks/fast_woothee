@@ -15,7 +15,7 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
         ruby: ['2.5', '2.6', '2.7']
-        static: ['unset RUBY_STATIC', 'export RUBY_STATIC=1']
+        static: ['unset RUBY_STATIC']
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -41,7 +41,6 @@ jobs:
         run: |
           ${{ matrix.static }}
           bundle exec rake thermite:tarball
-          bundle exec rake install
           echo "::set-output name=tarball::$(echo fast_woothee-*.tar.gz)"
 
       - name: Get the version
