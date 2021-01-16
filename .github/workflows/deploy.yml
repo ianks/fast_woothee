@@ -15,14 +15,14 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
         ruby: ['2.5', '2.6', '2.7']
-        static: ['0', '1']
+        static: ['unset RUBY_STATIC', 'export RUBY_STATIC=1']
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@v1
+        uses: actions/setup-ruby@v1
         with:
           version: $${{ matrix.ruby }}
 
@@ -38,22 +38,21 @@ jobs:
 
       - name: 📦 Package it
         id: package
-        env:
-          RUBY_STATIC: ${{ matrix.static }}
         run: |
+          ${{ matrix.static }}
           bundle exec rake thermite:tarball
           bundle exec rake install
           echo "::set-output name=tarball::$(echo fast_woothee-*.tar.gz)"
 
       - name: 🛳 Publish to RubyGems
         env:
-          RUBY_STATIC: ${{ matrix.static }}
           GEM_HOST_API_KEY: ${{secrets.RUBYGEMS_AUTH_TOKEN}}
         run: |
           mkdir -p $HOME/.gem
           touch $HOME/.gem/credentials
           chmod 0600 $HOME/.gem/credentials
           printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+          ${{ matrix.static }}
           bundle exec rake release
 
       - name: Get the version
