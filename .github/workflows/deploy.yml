@@ -22,7 +22,7 @@ jobs:
       - name: Set up Ruby ${{ matrix.ruby }}
         uses: ruby/setup-ruby@v1
         with:
-          version: $${{ matrix.ruby }}
+          ruby-version: $${{ matrix.ruby }}
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
