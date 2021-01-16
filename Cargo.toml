@@ -1,6 +1,6 @@
 [package]
 name = "fast_woothee"
-version = "1.6.3-beta.110"
+version = "1.6.3-beta.1210"
 authors = ["Ian Ker-Seymer <i.kerseymer@gmail.com>"]
 repository = "https://github.com/ianks/fast_woothee"
 publish = false
