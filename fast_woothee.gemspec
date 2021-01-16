@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'fast_woothee'
-  spec.version       = '1.6.3-beta.6'
+  spec.version       = '1.6.3-beta.7'
   spec.authors       = ['Ian Ker-Seymer']
   spec.email         = ['i.kerseymer@gmail.com']
 
