@@ -13,16 +13,26 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
         ruby: ['2.5', '2.6', '2.7']
-        static: ['unset RUBY_STATIC']
+        static: ['unset RUBY_STATIC', 'export RUBY_STATIC=1']
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install dependencies (system)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: sudo apt-get -yqq install curl gpg
+
+      # - name: Install dependencies (system)
+      #   if: ${{ matrix.os == 'macos-latest' }}
+      #   run: brew install curl
+
       - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
+        run: |
+          gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+          curl -sSL https://get.rvm.io | bash -s stable
+          rvm install ${{ matrix.ruby }}
+          rvm use ${{ matrix.ruby }} --default
 
       - name: Install Rust
         uses: actions-rs/toolchain@v1
@@ -31,12 +41,14 @@ jobs:
 
       - name: 🥏 Install deps
         run: |
+          source /usr/local/rvm/scripts/rvm
           gem install bundler
           bundle install --jobs 4 --retry 3
 
       - name: 📦 Package it
         id: package
         run: |
+          source /usr/local/rvm/scripts/rvm
           ${{ matrix.static }}
           bundle exec rake thermite:tarball
           echo "::set-output name=tarball::$(echo fast_woothee-*.tar.gz)"
@@ -46,7 +58,7 @@ jobs:
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
 
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
