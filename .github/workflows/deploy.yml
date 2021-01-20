@@ -23,25 +23,18 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: sudo apt-get -yqq install curl gpg
 
-      - name: Install RVM
+      - name: Install Ruby
         run: |
           curl -sSL https://rvm.io/mpapis.asc | gpg --import -
           curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
           curl -sSL https://get.rvm.io | bash -s stable
-
-      - name: Set up Ruby ${{ matrix.ruby }}
-        if: ${{ matrix.static == '0' }}
-        run: |
           source "$HOME/.rvm/scripts/rvm"
           rvm install ${{ matrix.ruby }}
           rvm use ${{ matrix.ruby }} --default
 
-      - name: Set up Ruby ${{ matrix.ruby }}
+      - name: Configure Ruby
         if: ${{ matrix.static == '1' }}
         run: |
-          source "$HOME/.rvm/scripts/rvm"
-          rvm install --static ${{ matrix.ruby }}
-          rvm use ${{ matrix.ruby }} --default
           echo "RUBY_STATIC=1" >> $GITHUB_ENV
 
       - name: Install Rust
